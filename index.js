@@ -95,4 +95,4 @@ client.connect((err) => {
   console.log("Database Connected");
 });
 
-app.listen(process.env.port || port);
+app.listen(process.env.PORT || port);
