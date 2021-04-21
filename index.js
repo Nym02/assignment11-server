@@ -25,6 +25,8 @@ client.connect((err) => {
   const collection = client.db("Degency").collection("services");
   const orderCollection = client.db("Degency").collection("orders");
   const reviewCollection = client.db("Degency").collection("reviews");
+  const adminCollection = client.db("Degency").collection("admins");
+  const blogCollection = client.db("Degency").collection("blogs");
 
   app.post("/addService", (req, res) => {
     const service = req.body;
@@ -66,6 +68,29 @@ client.connect((err) => {
     reviewCollection
       .insertOne(review)
       .then((result) => console.log("Review Added"));
+  });
+
+  app.get("/review", (req, res) => {
+    reviewCollection.find({}).toArray((err, doc) => {
+      res.send(doc);
+    });
+  });
+
+  app.post("/addAdmin", (req, res) => {
+    const admin = req.body;
+
+    adminCollection.insertOne(admin).then((result) => console.log(result));
+  });
+
+  app.post("/addBlogs", (req, res) => {
+    const blog = req.body;
+
+    blogCollection.insertOne(blog).then((result) => console.log(result));
+  });
+  app.get("/blog", (req, res) => {
+    blogCollection.find({}).toArray((err, doc) => {
+      res.send(doc);
+    });
   });
   console.log("Database Connected");
 });
